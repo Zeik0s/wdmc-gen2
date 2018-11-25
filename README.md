@@ -7,7 +7,7 @@ WD My Cloud (Gen2) - wdmc-gen2 - Marvell ARMADA 375
 
 ## For detailed Information have a look in the [Wiki](https://github.com/Zeik0s/wdmc-gen2/wiki)! Feel free to contribute!
 
-* mainline kernel support (Files will be updated soon!)
+* mainline kernel support
 	tested with 4.18.9
 	- device tree source
 		armada-375-wdmc-gen2.dts
@@ -17,7 +17,7 @@ WD My Cloud (Gen2) - wdmc-gen2 - Marvell ARMADA 375
 		uImage (4.18.9)
 
 
-	- build your own kernel
+	- build your own kernel (it's pretty easy doing this on your WDMC, Cross-compiling on your Machine is difficult)
 
 		- download kernel source from https://www.kernel.org/
 		- extract the kernel archive
@@ -40,7 +40,7 @@ WD My Cloud (Gen2) - wdmc-gen2 - Marvell ARMADA 375
 	- uRamdisk modified (Original from AllesterFox)
 
 		Can boot original firmware, debian from AllesterFox,
-		alpine linux.  It looks for a linux part as 2nd on usb stick
+		alpine linux.  It looks for a linux partition as 2nd on usb stick
 		and boots from there.  If there is none, it boots from 3rd
 		partition on SATA drive.  Copy to /boot on 1st partition of
 		the usb stick or to 3rd partition of the harddrive.
@@ -77,10 +77,11 @@ WD My Cloud (Gen2) - wdmc-gen2 - Marvell ARMADA 375
 	  usb stick.
 
 	  You should have:
-	  ```  
-	  `-rwxr-xr-x    1 root     root            26 Jun 17 11:47 .alpine-release`
-	  `-rwxr-xr-x    1 root     root          3427 Jan  1  1980 alpine.apkovl.tar.gz´
-	  `drwxr-xr-x    3 root     root          4096 Jun 17 11:47 apks`
-	  `drwxr-xr-x    5 root     root          4096 Jul  5 12:02 boot`
-          ```
+	  ```
+	  -rwxr-xr-x    1 root     root            26 Jun 17 11:47 .alpine-release
+	  -rwxr-xr-x    1 root     root          3427 Jan  1  1980 alpine.apkovl.tar.gz
+	  drwxr-xr-x    3 root     root          4096 Jun 17 11:47 apks
+	  drwxr-xr-x    5 root     root          4096 Jul  5 12:02 boot
+          
+	  ```
 	  on the usb stick.
