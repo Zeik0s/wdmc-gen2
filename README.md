@@ -5,26 +5,28 @@ WD My Cloud  Gen2 (Kernel / Distribution / Information) drop
 WD My Cloud (Gen2) - wdmc-gen2 - Marvell ARMADA 375
 ===================================================
 
-* mainline kernel support
-	tested with 4.11.x / 4.12.x
+## For detailed Information have a look in the [Wiki](https://github.com/Zeik0s/wdmc-gen2/wiki)! Feel free to contribute!
+
+* mainline kernel support (Files will be updated soon!)
+	tested with 4.18.9
 	- device tree source
 		armada-375-wdmc-gen2.dts
 	- kernel config
 		kernel-4.11.8.config, kernel-4.12.0.config
 	- kernel uImage with dtb
-		uImage (4.12.0)
+		uImage (4.18.9)
 
 
 	- build your own kernel
 
 		- download kernel source from https://www.kernel.org/
 		- extract the kernel archive
-		- copy kernel-4.12.0.config to linux-4.12/.config 
+		- copy kernel-XXXXXX.config to linux-XXXXXXX/.config 
 		- copy armada-375-wdmc-gen2.dts to
-		  linux-4.12/linux-4.12/arch/arm/boot/dts/
+		  linux-XXXXXX/linux-XXXXXXX/arch/arm/boot/dts/
 		- ready to build the kernel (you can use build_kernel_image.sh)
 		```
-		cd linux-4.12
+		cd linux-XXXXXXXX
 		make -j2 zImage
 		make armada-375-wdmc-gen2.dtb
 		cat arch/arm/boot/zImage arch/arm/boot/dts/armada-375-wdmc-gen2.dtb > zImage_and_dtb
@@ -63,7 +65,7 @@ WD My Cloud (Gen2) - wdmc-gen2 - Marvell ARMADA 375
 
 * install
 	- Use an USB 2.0 stick!
-		I had the problem, that usb 3.0 sticks aren't always booting.
+		They had the problem, that usb 3.0 sticks aren't always booting.
 		If you have only an usb 3.0 stick, remove stick, turn wdmc2 on,
 		when the blue light blinks insert usb stick fast, using this i
 		could boot from usb 3.0 sick.
