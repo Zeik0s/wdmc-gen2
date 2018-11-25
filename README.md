@@ -18,6 +18,9 @@ WD My Cloud (Gen2) - wdmc-gen2 - Marvell ARMADA 375
 
 
 	- build your own kernel (it's pretty easy doing this on your WDMC, Cross-compiling on your Machine is difficult)
+	
+		**Before you start, get sure to make a Backup of your current /dev/sda3 Partition!**
+		**And for the worst Case some Adapter or Dockingstation to restore the Backup when mounting the Drive!**
 
 		- download kernel source from https://www.kernel.org/
 		- extract the kernel archive
