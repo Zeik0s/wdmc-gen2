@@ -9,22 +9,21 @@ WD My Cloud (Gen2) - wdmc-gen2 - Marvell ARMADA 375
 
 * mainline kernel support
 	tested with 4.18.9
-	- device tree source
-		armada-375-wdmc-gen2.dts
-	- kernel config
-		kernel-4.11.8.config, kernel-4.12.0.config
-	- kernel uImage with dtb
-		uImage (4.18.9)
-
+	
+	files needed for compiling:
+	- device tree source -> armada-375-wdmc-gen2.dts
+	- kernel config -> kernel-4.12.0.config
+	- kernel uImage with dtb -> uImage (4.18.9)
+	
 
 	- build your own kernel (it's pretty easy doing this on your WDMC, Cross-compiling on your Machine is difficult)
 	
 		**Before you start, get sure to make a Backup of your current /dev/sda3 Partition!**
-		**And for the worst Case some Adapter or Dockingstation to restore the Backup when mounting the Drive!**
+		**And for the worst Case use/buy some Adapter or Dockingstation to restore the Backup when mounting the Drive!**
 
 		- download kernel source from https://www.kernel.org/
 		- extract the kernel archive
-		- copy kernel-XXXXXX.config to linux-XXXXXXX/.config 
+		- copy kernel-OLD_VERSION_NUMBER.config to linux-XXXXXXX/.config 
 		- copy armada-375-wdmc-gen2.dts to
 		  linux-XXXXXX/linux-XXXXXXX/arch/arm/boot/dts/
 		- ready to build the kernel (you can use build_kernel_image.sh)
