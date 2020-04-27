@@ -1,7 +1,3 @@
-# wdmc-gen2
-WD My Cloud  Gen2 (Kernel / Distribution / Information) drop
-
-
 WD My Cloud (Gen2) - wdmc-gen2 - Marvell ARMADA 375
 ===================================================
 
@@ -11,22 +7,25 @@ WD My Cloud (Gen2) - wdmc-gen2 - Marvell ARMADA 375
 	tested with 4.18.9
 	
 	files needed for compiling:
-	- device tree source -> armada-375-wdmc-gen2.dts
-	- kernel config -> kernel-4.12.0.config
-	- kernel uImage with dtb -> uImage (4.18.9)
+	- device tree source -> [armada-375-wdmc-gen2.dts](https://github.com/Zeik0s/wdmc-gen2/blob/master/armada-375-wdmc-gen2.dts)
+	- kernel config -> [kernel-4.18.9.config](https://github.com/Zeik0s/wdmc-gen2/blob/master/4.18.9/kernel.config)
+	- kernel source code -> latest or stable [here](https://www.kernel.org)
 	
 
-	- build your own kernel (it's pretty easy doing this on your WDMC, Cross-compiling on your Machine is difficult)
+	- build your own kernel (it's pretty easy doing this on your WDMC, but takes a long time.)
 	
-		**Before you start, get sure to make a Backup of your current /dev/sda3 Partition!**
-		**And for the worst Case use/buy some Adapter or Dockingstation to restore the Backup when mounting the Drive!**
+	**Instructions for Cross-compiling [here](#Cross-Compile)**
+	
+	
+	
+	**Before you start, get sure to make a Backup of your current /dev/sda3 Partition!**
+	**And for the worst Case use/buy some Adapter or Dockingstation to restore the Backup when mounting the Drive!**
 
-		- download kernel source from https://www.kernel.org/
-		- extract the kernel archive
-		- copy kernel-OLD_VERSION_NUMBER.config to linux-XXXXXXX/.config 
-		- copy armada-375-wdmc-gen2.dts to
-		  linux-XXXXXX/linux-XXXXXXX/arch/arm/boot/dts/
-		- ready to build the kernel (you can use build_kernel_image.sh)
+	- download kernel source from https://www.kernel.org/
+	- extract the kernel archive
+	- copy kernel-OLD_VERSION_NUMBER.config to linux-XXXXXXX/.config 
+	- copy armada-375-wdmc-gen2.dts to linux-XXXXXXX/arch/arm/boot/dts/
+	- ready to build the kernel (you can use build_kernel_image.sh)
 		```
 		cd linux-XXXXXXXX
 		make -j2 zImage
@@ -39,20 +38,24 @@ WD My Cloud (Gen2) - wdmc-gen2 - Marvell ARMADA 375
 		```
 		copy uImage to /boot of your boot partition
 
-	- uRamdisk modified (Original from AllesterFox)
+* uRamdisk modified (Original from AllesterFox)
 
-		Can boot original firmware, debian from AllesterFox,
-		alpine linux.  It looks for a linux partition as 2nd on usb stick
-		and boots from there.  If there is none, it boots from 3rd
-		partition on SATA drive.  Copy to /boot on 1st partition of
-		the usb stick or to 3rd partition of the harddrive.
+	Can boot original firmware, debian from AllesterFox, alpine linux. It looks for a linux partition as 2nd on usb stick and boots from there.  If there is none, it boots from 3rd partition on SATA drive.  Copy to /boot on 1st partition of the usb stick or to 3rd partition of the harddrive.
 
-	- build-initramfs.sh
+* build-initramfs.sh
 
-		builds a minimal initramfs.  Can boot from kernel commandline,
-		usb-stick 2nd partition, hdd 3rd partition.
-		placed in /boot/uInitrd. rename it to uRamdisk.
+	builds a minimal initramfs.  Can boot from kernel commandline,
+	usb-stick 2nd partition, hdd 3rd partition. Placed in /boot/uInitrd. rename it to uRamdisk.
 		
+---
+* Cross-Compile<a name="Cross-Compile"></a>:
+
+	- Utilities required: 
+		- https://sourceforge.net/projects/dsgpl/files/DSM%206.2.2%20Tool%20Chains/Marvell%20Armada%2038x%20Linux%203.10.105/armada38x-gcc493_glibc220_hard-GPL.txz/download
+		- packages: build-essential libncurses5 u-boot-tools git bison flex
+		
+		# to be updated!
+
 * [alpine linux](https://alpinelinux.org/) diskless image
 
 	- alpine-wdmc-gen2-3.6.2-armhf.tar.gz
