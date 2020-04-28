@@ -3,29 +3,24 @@ WD My Cloud (Gen2) - wdmc-gen2 - Marvell ARMADA 375
 
 ## For detailed Information have a look in the [Wiki](https://github.com/Zeik0s/wdmc-gen2/wiki)! Feel free to contribute!
 
-* mainline kernel support
-	tested with 4.18.9
+* mainline kernel support tested with 4.18.9
 	
 	files needed for compiling:
 	- device tree source -> [armada-375-wdmc-gen2.dts](https://github.com/Zeik0s/wdmc-gen2/blob/master/armada-375-wdmc-gen2.dts)
 	- kernel config -> [kernel-4.18.9.config](https://github.com/Zeik0s/wdmc-gen2/blob/master/4.18.9/kernel.config)
 	- kernel source code -> latest or stable [here](https://www.kernel.org)
 	
-
-	- build your own kernel (it's pretty easy doing this on your WDMC, but takes a long time.)
-	
+	it's pretty easy doing this on your WDMC, but takes a long time.
 	**Instructions for Cross-compiling [here](#Cross-Compile)**
 	
-	
-	
-	**Before you start, get sure to make a Backup of your current /dev/sda3 Partition!**
+	**Before you start, get sure to make a Backup of your current /dev/sda3 Partition! That's the partition that holds the system itself and all the configuration.**
 	**And for the worst Case use/buy some Adapter or Dockingstation to restore the Backup when mounting the Drive!**
 
 	- download kernel source from https://www.kernel.org/
 	- extract the kernel archive
 	- copy kernel-OLD_VERSION_NUMBER.config to linux-XXXXXXX/.config 
 	- copy armada-375-wdmc-gen2.dts to linux-XXXXXXX/arch/arm/boot/dts/
-	- ready to build the kernel (you can use build_kernel_image.sh)
+	- ready to build the kernel
 		```
 		cd linux-XXXXXXXX
 		make -j2 zImage
@@ -34,9 +29,43 @@ WD My Cloud (Gen2) - wdmc-gen2 - Marvell ARMADA 375
 		mkimage -A arm -O linux -T kernel -C none -a 0x00008000 -e 0x00008000 -n 'WDMC-Gen2' -d zImage_and_dtb uImage
 		rm zImage_and_dtb
 		make -j2 modules modules_install
-
 		```
 		copy uImage to /boot of your boot partition
+		
+		reboot and enjoy your new Kernel!
+
+
+---
+* Cross-Compile<a name="Cross-Compile"></a>:
+
+	- Utilities required: 
+		- https://sourceforge.net/projects/dsgpl/files/DSM%206.2.2%20Tool%20Chains/Marvell%20Armada%2038x%20Linux%203.10.105/armada38x-gcc493_glibc220_hard-GPL.txz/download
+		- packages: build-essential libncurses5 u-boot-tools git bison flex
+		- kernel source code (https://www.kernel.org)
+		- all other WD Mycloud files that are mentioned in the upper lines.
+		
+	- download and extract new kernel source code
+	- download and extract the Marvell Armada Toolchain (from Sourceforge)
+	- enter the following: 
+	```
+	alias makehelp='make -j8 CROSS_COMPILE=/home/user/arm-unknown-linux-gnueabi/bin/arm-unknown-linux-gnueabi- ARCH=arm'
+	```
+	replace the following _/home/user_ directory with the directory where the toolchain is downloaded
+	change the number after _-j_ according to your Number of Threads (Cores x 2) on your PC, this speeds up significantly the compiling process.
+	then these commands follow:
+	```
+	makehelp zImage
+	makehelp armada-375-wdmc-gen2.dtb
+	mkdir -p ../kernel-bin/boot
+	cat arch/arm/boot/zImage arch/arm/boot/dts/armada-375-wdmc-gen2.dtb > ../kernel-bin/zImage_and_dtb
+	mkimage -A arm -O linux -T kernel -C none -a 0x00008000 -e 0x00008000 -n 'WDMC-Gen2' -d ../kernel-bin/zImage_and_dtb ../kernel-bin/boot/uImage
+	rm ../kernel-bin/zImage_and_dtb
+	makehelp modules
+	makehelp INSTALL_MOD_PATH=../kernel-bin modules_install
+	```
+	This creates a folder called _kernel-bin_, where the Kernel and Boot-Code and all the compiled Kernel Modules are generated. Move the content of the folder to the root folder your Mycloud Device.
+	
+## Recovery/other Stuff
 
 * uRamdisk modified (Original from AllesterFox)
 
@@ -47,14 +76,6 @@ WD My Cloud (Gen2) - wdmc-gen2 - Marvell ARMADA 375
 	builds a minimal initramfs.  Can boot from kernel commandline,
 	usb-stick 2nd partition, hdd 3rd partition. Placed in /boot/uInitrd. rename it to uRamdisk.
 		
----
-* Cross-Compile<a name="Cross-Compile"></a>:
-
-	- Utilities required: 
-		- https://sourceforge.net/projects/dsgpl/files/DSM%206.2.2%20Tool%20Chains/Marvell%20Armada%2038x%20Linux%203.10.105/armada38x-gcc493_glibc220_hard-GPL.txz/download
-		- packages: build-essential libncurses5 u-boot-tools git bison flex
-		
-		# to be updated!
 
 * [alpine linux](https://alpinelinux.org/) diskless image
 
