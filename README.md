@@ -1,6 +1,8 @@
 WD My Cloud (Gen2) - wdmc-gen2 - Marvell ARMADA 375
 ===================================================
 
+## For a better documented and more recent way head over to https://github.com/heisath/wdmc2-kernel 
+
 ## For detailed Information have a look in the [Wiki](https://github.com/Zeik0s/wdmc-gen2/wiki)! Feel free to contribute!
 
 * mainline kernel support tested with 4.18.9
